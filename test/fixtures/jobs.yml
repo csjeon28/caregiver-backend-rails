@@ -1,0 +1,25 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  city: MyString
+  state: MyString
+  job_description: MyText
+  number_of_children: 1
+  hourly_rate: 1.5
+  required_to_drive: false
+  specific_days_needed: MyString
+  caregiver_id: 1
+  parent_id: 1
+
+two:
+  title: MyString
+  city: MyString
+  state: MyString
+  job_description: MyText
+  number_of_children: 1
+  hourly_rate: 1.5
+  required_to_drive: false
+  specific_days_needed: MyString
+  caregiver_id: 1
+  parent_id: 1
