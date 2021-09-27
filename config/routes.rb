@@ -1,14 +1,24 @@
 Rails.application.routes.draw do
-  resources :jobs
-  resources :parents
-  resources :caregivers
+      # resources :parents, only: [:index, :show, :create, :update]
+      # resources :caregivers, only: [:index, :show, :create, :update]
+      # resources :jobs 
 
-  # get '/login', to: 'auth#login'
-  # get '/auto_login', to: 'auth#auto_login'
+      # post '/parents/login', to: 'parents_auth#create'
+      # post '/caregivers/login', to: 'caregivers_auth#create'
+      # get '/home', to: 'home#show', only: [:show]
 
-  # get '/parents/auto_login', to: 'parents_sessions#auto_login'
-  # get '/caregivers/auto_login', to: 'caregivers_sessions#auto_login'
-  post '/parents/login', to: 'parents_sessions#create'
-  post '/caregivers/login', to: 'caregivers_sessions#create'
-  get '/home', to: 'home#show', only: [:show]
+      resources :caregivers do
+        resources :jobs
+      end
+      post "caregiver/login", to:"caregivers#login"
+      get "caregiver/auto_login", to:"caregivers#auto_login"
+
+      resources :parents do
+        resources :schedules
+        resources :jobs
+      end
+      post "parent/login", to:"parents#login"
+      get "parent/auto_login", to:"parents#auto_login"
+    end
+
 end
