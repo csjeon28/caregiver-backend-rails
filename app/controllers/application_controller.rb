@@ -48,7 +48,7 @@ class ApplicationController < ActionController::API
     
     # gets the authorization header, which will look like { Authorization: 'Bearer <token>' }
     def auth_header
-        request.headers["Authorization"]
+        request.headers['Authorization']
     end
 
     def decode_token
@@ -68,7 +68,7 @@ class ApplicationController < ActionController::API
       if decode_token
         @caregiver_id = decode_token[0]['caregiver_id']
         @parent_id = decode_token[0]['parent_id']
-        return @caregiver = Caregiver.find_by(id: @caregiver__id) if @caregiver_id
+        return @caregiver = Caregiver.find_by(id: @caregiver_id) if @caregiver_id
         return @parent = Parent.find_by(id: @parent_id) if @parent_id
       end
     end
