@@ -57,6 +57,7 @@
 
 class ParentsController < ApplicationController
   before_action :authorized, only: [:auto_login, :update, :destroy]
+  # before_action :authorized, only: [:update, :destroy]
   before_action :set_parent, only: [:show, :update, :destroy]
 
   # GET /parents

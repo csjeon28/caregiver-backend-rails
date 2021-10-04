@@ -36,7 +36,7 @@
     
 # end
 
-require 'dotenv/load'
+# require 'dotenv/load'
 
 class ApplicationController < ActionController::API
     # locks down entire app to only authorized users
@@ -72,13 +72,13 @@ class ApplicationController < ActionController::API
         return @parent = Parent.find_by(id: @parent_id) if @parent_id
       end
     end
-
+    
     # returns a bool based on if we found the user
     def logged_in?
-        !!login_user
+      !!login_user
     end
-
-    # send back an error to log in unless user is logged in, used to lock down entire app
+    
+    # send back an error to log in unless user is logged in
     def authorized
         render json: { errors: 'Please log in' }, status: :unauthorized unless logged_in?
     end

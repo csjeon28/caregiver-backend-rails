@@ -37,6 +37,7 @@
 
 class CaregiversController < ApplicationController
   before_action :authorized, only: [:auto_login, :update, :destroy]
+  # before_action :authorized, only: [:update, :destroy]
   before_action :set_caregiver, only: [:show, :update, :destroy]
 
   # GET /caregivers
@@ -64,7 +65,7 @@ class CaregiversController < ApplicationController
 
   def login
     @caregiver = Caregiver.find_by(email: caregiver_params[:email])
-
+    
     if @caregiver&.authenticate(caregiver_params[:password])
       token = encode_token({ caregiver_id: @caregiver.id })
       render json: { caregiver: @caregiver, token: token }
@@ -72,7 +73,7 @@ class CaregiversController < ApplicationController
       render json: { error: 'Invalid username or password' }
     end
   end
-
+  
   def auto_login
     token = encode_token({ caregiver_id: @caregiver.id })
     render json: { caregiver: @caregiver, token: token }
