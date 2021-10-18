@@ -1,6 +1,5 @@
 class ParentsController < ApplicationController
-  before_action :authorized, only: [:auto_login, :update, :destroy]
-  # before_action :authorized, only: [:update, :destroy]
+  skip_before_action :authorized, only: [:create, :login, :index]
   before_action :set_parent, only: [:show, :update, :destroy]
 
   # GET /parents
@@ -16,10 +15,10 @@ class ParentsController < ApplicationController
 
   # POST /parents
   def create
-    @parent = Parent.create(parent_params)
-
+    @parent = Parent.new(parent_params)
     if @parent.valid?
       token = encode_token({ parent_id: @parent.id })
+      @parent.save
       render json: { parent: @parent, token: token }
     else
       render json: { error: 'Email already registered' }
@@ -33,13 +32,17 @@ class ParentsController < ApplicationController
       token = encode_token({ parent_id: @parent.id })
       render json: { parent: @parent, token: token }
     else
-      render json: { error: 'Invalid username or password' }
+      render json: { error: 'Invalid Username/Password or User Type. Please try again.' }
     end
   end
 
   def auto_login
     token = encode_token({ parent_id: @parent.id })
-    render json: { parent: @parent, token: token }
+    if token
+      render json: { parent: @parent, token: token }
+    else 
+      render json: {error: 'Please log in'}
+    end
   end
 
   # PATCH /parents/:id
@@ -58,14 +61,12 @@ class ParentsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_parent
     @parent = Parent.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through.
   def parent_params
-    params.require(:parent).permit(:first_name, :last_name, :email, :password, :bio, :city, :state, :country, :language, :smoker, :has_pets, :hourly_rate, :profile_image, :number_of_children)
+    params.require(:parent).permit(:first_name, :last_name, :email, :password, :bio, :city, :state, :language, :smoker, :has_pets, :hourly_rate, :number_of_children)
   end
 
 end
