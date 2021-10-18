@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
-  resources :parent_favorites
-  resources :caregiver_favorites
-  
+  resources :parent_favorites, only: [:create, :destroy]
+  resources :caregiver_favorites, only: [:create, :destroy]
+
   resources :caregivers do
     resources :jobs
     resources :candidates
