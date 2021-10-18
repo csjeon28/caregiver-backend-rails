@@ -22,7 +22,6 @@ class SchedulesController < ApplicationController
       @time_slots = (start_date..end_date).step(86_400).each do |date|
           slot_date = Time.at(date).strftime('%D')
           @parent.schedules.create(date: slot_date)
-        end
       end
   
       if @time_slots
