@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
     before_action :authorized, only: [:create, :update, :destroy]
     before_action :set_job, only: [:show, :update, :destroy]
-    before_action :set_caregiver, only: [:create]
+    # before_action :set_caregiver, only: [:create]
   
     # GET /jobs
     def index
@@ -25,13 +25,14 @@ class JobsController < ApplicationController
   
     # POST /jobs
     def create
-      @job = @caregiver.jobs.new(job_params)
-  
-      if @job.save
+      @job = @parent.jobs.new(job_params)
+    #   //not sure if i need this code below
+      @job.parent_id = @parent.id  
+      @job.save
         render json: @job, status: :created
-      else
-        render json: @job.errors, status: :unprocessable_entity
-      end
+    #   else
+    #     render json: @job.errors, status: :unprocessable_entity
+    #   end
     end
   
     # PATCH/PUT /jobs/1
@@ -50,16 +51,14 @@ class JobsController < ApplicationController
   
     private
   
-    # Use callbacks to share common setup or constraints between actions.
     def set_job
       @job = Job.find(params[:id])
     end
   
-    def set_caregiver
-      @caregiver = Caregiver.find(params[:caregiver_id])
-    end
+    # def set_caregiver
+    #   @caregiver = Caregiver.find(params[:caregiver_id])
+    # end
   
-    # Only allow a trusted parameter "white list" through.
     def job_params
         params.require(:job).permit(:title, :city, :state, :job_description, :number_of_children, 
         :hourly_rate, :required_to_drive, :specific_days_needed, :caregiver_id, :parent_id)
