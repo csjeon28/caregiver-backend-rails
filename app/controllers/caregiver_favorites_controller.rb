@@ -16,8 +16,6 @@ class CaregiverFavoritesController < ApplicationController
                     render json: { created: true, favorite: @caregiver_favorite.as_json }
                 end
             end
-        else
-            render :json => { msg: "Favoriting error" }, :status => :bad_request
         end
     end
 
