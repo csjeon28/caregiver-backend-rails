@@ -10,10 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_27_222005) do
+ActiveRecord::Schema.define(version: 2021_10_09_192346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "candidates", force: :cascade do |t|
+    t.integer "job_id"
+    t.integer "caregiver_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "caregivers", force: :cascade do |t|
     t.string "first_name"
@@ -25,7 +32,6 @@ ActiveRecord::Schema.define(version: 2021_09_27_222005) do
     t.boolean "smoker"
     t.string "city"
     t.string "state"
-    t.string "country"
     t.string "language"
     t.float "hourly_rate"
     t.boolean "ability_to_drive"
@@ -49,6 +55,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_222005) do
     t.integer "parent_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "schedule_id"
   end
 
   create_table "parents", force: :cascade do |t|
@@ -59,7 +66,6 @@ ActiveRecord::Schema.define(version: 2021_09_27_222005) do
     t.text "bio"
     t.string "city"
     t.string "state"
-    t.string "country"
     t.string "language"
     t.boolean "smoker"
     t.boolean "has_pets"
@@ -75,6 +81,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_222005) do
     t.boolean "available"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "parent_id"
   end
 
 end
