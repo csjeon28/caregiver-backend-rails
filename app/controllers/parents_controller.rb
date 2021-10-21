@@ -21,7 +21,7 @@ class ParentsController < ApplicationController
       @parent.save
       render json: { parent: @parent, token: token }
     else
-      render json: { error: 'Email already registered' }
+      render json: { error: @parent.errors.full_messages }
     end
   end
 
