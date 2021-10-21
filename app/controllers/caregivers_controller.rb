@@ -8,7 +8,7 @@ class CaregiversController < ApplicationController
     render json: @caregivers
   end
 
-  # GET /caregivers/:id
+  # GET /caregivers/1
   def show
     render json: @caregiver
   end
@@ -21,7 +21,7 @@ class CaregiversController < ApplicationController
       @caregiver.save
       render json: { caregiver: @caregiver, token: token }
     else
-      render json: { error: 'Email already registered' }
+      render json: { error: @caregiver.errors.full_messages }
     end
   end
 
