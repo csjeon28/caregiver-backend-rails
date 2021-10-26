@@ -74,12 +74,4 @@ ActiveRecord::Schema.define(version: 2021_10_26_203216) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "schedules", force: :cascade do |t|
-    t.string "date"
-    t.boolean "available"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "parent_id"
-  end
-
 end
