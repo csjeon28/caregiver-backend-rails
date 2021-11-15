@@ -1,6 +1,5 @@
 class JobsController < ApplicationController
-  before_action :authorized, only: [:auto_login, :destroy]
-  skip_before_action :authorized, only: [:create, :all_jobs]
+  before_action :authorized, only: [:create, :destroy]
   before_action :set_job, only: [:destroy]
   before_action :set_parent, only: [:create, :index]
 
@@ -16,7 +15,12 @@ class JobsController < ApplicationController
       set_parent
       @jobs = @parent.jobs
     end
-  
+    
+    # if params[:caregiver_id].present?
+    #   set_caregiver
+    #   @jobs = @caregiver.jobs
+    # end
+    
     render json: @jobs
   end
   
@@ -49,6 +53,6 @@ class JobsController < ApplicationController
   
   def job_params
       params.require(:job).permit(:title, :job_description, :number_of_children, 
-      :hourly_rate, :required_to_drive, :specific_days_needed, :parent_id)
+      :hourly_rate, :required_to_drive, :specific_days_needed, :caregiver_id, :parent_id)
   end
 end
