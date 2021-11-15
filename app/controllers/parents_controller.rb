@@ -1,6 +1,6 @@
 class ParentsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :login, :index]
-  before_action :set_parent, only: [:show, :update, :destroy]
+  before_action :authorized, only: [:auto_login, :login]
+  before_action :set_parent, only: [:show]
 
   # GET /parents
   def index
