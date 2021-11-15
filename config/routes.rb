@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   end
   post "parent/login", to:"parents#login"
   get "parent/auto_login", to:"parents#auto_login"
+  get "parent/job-requests", to:"requests#show"
+
 end
