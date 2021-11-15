@@ -15,7 +15,7 @@ class JobsController < ApplicationController
       set_parent
       @jobs = @parent.jobs
     end
-    
+
     # if params[:caregiver_id].present?
     #   set_caregiver
     #   @jobs = @caregiver.jobs
@@ -46,6 +46,10 @@ class JobsController < ApplicationController
   def set_parent
     @parent = Parent.find(params[:parent_id])
   end
+
+  # def set_caregiver
+  #   @caregiver = Caregiver.find(params[:caregiver_id])
+  # end
 
   def set_job
     @job = Job.find(params[:id])
