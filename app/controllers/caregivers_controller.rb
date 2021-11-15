@@ -1,6 +1,6 @@
 class CaregiversController < ApplicationController
-  skip_before_action :authorized, only: [:create, :login, :index]
-  before_action :set_caregiver, only: [:show, :update, :destroy]
+  before_action :authorized, only: [:auto_login, :login]
+  before_action :set_caregiver, only: [:show]
 
   # GET /caregivers
   def index
