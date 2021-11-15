@@ -1,5 +1,6 @@
 class ParentsController < ApplicationController
-  before_action :authorized, only: [:auto_login, :login]
+  skip_before_action :authorized, only: [:create, :login, :index]
+  before_action :authorized, only: [:auto_login]
   before_action :set_parent, only: [:show]
 
   # GET /parents
