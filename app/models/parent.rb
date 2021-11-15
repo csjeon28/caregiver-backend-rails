@@ -2,7 +2,7 @@ class Parent < ApplicationRecord
     has_secure_password
     has_many :jobs
     has_many :caregivers, through: :jobs
-    has_many :candidates
+    has_many :candidates, through: :jobs
 
     PASSWORD_REQ = /\A
     (?=.{8,}) # Minimum 8 characters
