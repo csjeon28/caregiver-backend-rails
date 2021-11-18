@@ -47,10 +47,6 @@ class JobsController < ApplicationController
     @parent = Parent.find(params[:parent_id])
   end
 
-  # def set_caregiver
-  #   @caregiver = Caregiver.find(params[:caregiver_id])
-  # end
-
   def set_job
     @job = Job.find(params[:id])
   end
