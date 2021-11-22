@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   before_action :authorized, only: [:create, :destroy]
   before_action :set_job, only: [:destroy]
-  before_action :set_parent, only: [:create, :index]
+  before_action :set_parent, only: [:create, :index, :job_candidates]
 
   # GET /all-jobs
   def all_jobs
@@ -13,17 +13,12 @@ class JobsController < ApplicationController
   def index
     if params[:parent_id].present?
       set_parent
-      @jobs = @parent.jobs
+      @jobs = @parent.jobs.as_json(include: {candidates: {include: {caregiver: {only: [:id, :first_name, :last_name, :email]}}, only: :caregiver_id}})
     end
-
-    # if params[:caregiver_id].present?
-    #   set_caregiver
-    #   @jobs = @caregiver.jobs
-    # end
     
     render json: @jobs
   end
-  
+
   # POST /jobs
   def create
     @job = @parent.jobs.new(job_params)
