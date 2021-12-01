@@ -1,11 +1,13 @@
 class JobsController < ApplicationController
   before_action :authorized, only: [:create, :destroy]
   before_action :set_job, only: [:destroy]
-  before_action :set_parent, only: [:create, :index, :job_candidates]
+  before_action :set_parent, only: [:create]
 
   # GET /all-jobs
   def all_jobs
-    @jobs = Job.all
+    # @jobs = Job.all
+    # render json: @jobs
+    @jobs = Job.where(caregiver_id: nil)
     render json: @jobs
   end
 
@@ -14,6 +16,9 @@ class JobsController < ApplicationController
     if params[:parent_id].present?
       set_parent
       @jobs = @parent.jobs.as_json(include: {candidates: {include: {caregiver: {only: [:id, :first_name, :last_name, :email]}}, only: :caregiver_id}})
+    elsif params[:caregiver_id].present?
+      set_caregiver
+      @jobs = @caregiver.jobs.as_json(include: {candidates: {include: {caregiver: {only: [:id, :first_name, :last_name, :email]}}, only: :caregiver_id}})
     end
     
     render json: @jobs
@@ -31,6 +36,13 @@ class JobsController < ApplicationController
     end
   end
   
+  def update
+    @job = Job.find(params[:job_id])
+    if @job.update(job_params)
+      render json: @job
+    end
+  end
+
   # DELETE /jobs/1
   def destroy
     @job.destroy
@@ -40,6 +52,10 @@ class JobsController < ApplicationController
   
   def set_parent
     @parent = Parent.find(params[:parent_id])
+  end
+
+  def set_caregiver
+    @caregiver = Caregiver.find(params[:caregiver_id])
   end
 
   def set_job
