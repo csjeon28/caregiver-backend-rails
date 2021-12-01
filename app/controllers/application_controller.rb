@@ -1,5 +1,3 @@
-# require 'dotenv/load'
-
 class ApplicationController < ActionController::API
     # locks down entire app to only authorized users
     before_action :authorized
