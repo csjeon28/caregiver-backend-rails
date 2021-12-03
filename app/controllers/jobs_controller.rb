@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
-  before_action :authorized, only: [:create, :destroy]
+  skip_before_action :authorized, only: [:create]
+  before_action :authorized, only: [:destroy]
   before_action :set_job, only: [:destroy]
   before_action :set_parent, only: [:create]
 
