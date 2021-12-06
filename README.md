@@ -48,3 +48,5 @@ An application where parents/guardians and babysitters can connect and view each
 2. Navigate to root folder of the frontend repo
 3. Run `npm install` to install all dependencies
 4. Run `npm start` to start server
+
+#### | <a href="https://github.com/csjeon28/caregiver-frontend-react" target="_blank">Frontend Repo</a> |
