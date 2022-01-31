@@ -6,8 +6,6 @@ class JobsController < ApplicationController
 
   # GET /all-jobs
   def all_jobs
-    # @jobs = Job.all
-    # render json: @jobs
     @jobs = Job.where(caregiver_id: nil)
     render json: @jobs
   end
